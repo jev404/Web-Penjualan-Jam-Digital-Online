@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Pesanan</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+  
+
+  <!-- Konten -->
+  <div class="container mt-5">
+    <h2 class="text-center">Detail Pesanan</h2>
+    <div class="card mt-4">
+      <div class="card-body">
+        <h4 class="card-title">Detail Pesanan Anda</h4>
+        <p><strong>Nama:</strong> <span id="detailName"></span></p>
+        <p><strong>Email:</strong> <span id="detailEmail"></span></p>
+        <p><strong>Alamat Pengiriman:</strong> <span id="detailAddress"></span></p>
+        <p><strong>Produk:</strong> <span id="detailProduct"></span></p>
+        <p><strong>Harga:</strong> Rp<span id="detailPrice"></span></p>
+      </div>
+    </div>
+    <div class="text-center mt-4">
+      <a href="index.html" class="btn btn-success">Kembali ke Beranda</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+
+  <!-- Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Ambil data dari Local Storage
+      const orderDetails = JSON.parse(localStorage.getItem('orderDetails'));
+
+      // Tampilkan data di halaman
+      if (orderDetails) {
+        document.getElementById('detailName').textContent = orderDetails.name;
+        document.getElementById('detailEmail').textContent = orderDetails.email;
+        document.getElementById('detailAddress').textContent = orderDetails.address;
+        document.getElementById('detailProduct').textContent = orderDetails.product;
+        document.getElementById('detailPrice').textContent = orderDetails.price;
+      } else {
+        alert('Tidak ada data pesanan!');
+        window.location.href = 'index.html';
+      }
+    });
+  </script>
+</body>
+</html>

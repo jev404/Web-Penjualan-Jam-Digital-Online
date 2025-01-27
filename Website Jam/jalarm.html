@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pesan Jam Digital Alarm</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="website icon" href="img/jalarm.jpg" alt="jalarm.jpg">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Kembali</a>
+    </div>
+  </nav>
+
+  <!-- Konten -->
+  <div class="container mt-5">
+    <h2 class="text-center">Jam Digital Alarm</h2>
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <img src="img/jalarm.jpg" alt="Jam Digital Modern" class="img-fluid">
+      </div>
+      <div class="col-md-6">
+        <p>Harga: Rp. 750.000</p>
+        <p>Deskripsi: Jam Digital Alarm Yang Siap Membangun Anda Di Pagi Hari</p>
+        <form id="orderForm">
+          <div class="mb-3">
+            <label for="name" class="form-label">Nama Lengkap</label>
+            <input type="text" id="name" name="name" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" name="email" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="address" class="form-label">Alamat Pengiriman</label>
+            <textarea id="address" name="address" class="form-control" rows="3" required></textarea>
+          </div>
+          <input type="hidden" id="product" value="Jam Digital Modern">
+          <input type="hidden" id="price" value="750.000">
+          <button type="button" id="orderBtn" class="btn btn-success">Pesan Sekarang</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+
+  <!-- Script -->
+  <script>
+    document.getElementById('orderBtn').addEventListener('click', function () {
+      // Ambil data form
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const address = document.getElementById('address').value;
+      const product = document.getElementById('product').value;
+      const price = document.getElementById('price').value;
+      // Validasi form
+      if (!name || !email || !address) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Harap isi semua data dengan lengkap!',
+        });
+        return;
+      }
+
+      // Konfirmasi pesanan
+      Swal.fire({
+        title: 'Konfirmasi Pesanan',
+        html: `
+          <p><strong>Nama:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Alamat:</strong> ${address}</p>
+          <p><strong>Produk:</strong> ${product}</p>
+          <p><strong>Harga:</strong> Rp${price}</p>
+        `,
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonText: 'Konfirmasi',
+        cancelButtonText: 'Batal',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Popup berhasil
+          Swal.fire({
+            icon: 'success',
+            title: 'Berhasil!',
+            text: 'Pesanan Anda telah dikonfirmasi.',
+            showConfirmButton: false,
+            timer: 2000,
+          }).then(() => {
+            if (result.isConfirmed) {
+          // Simpan data ke Local Storage sementara
+          const orderDetails = { name, email, address, product, price };
+          localStorage.setItem('orderDetails', JSON.stringify(orderDetails));
+
+          // Arahkan ke halaman detail pesanan
+          window.location.href = 'detail_pesanan.html';
+            }
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
